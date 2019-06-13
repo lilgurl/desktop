@@ -137,26 +137,6 @@ describe('updateConflictState', () => {
 
       expect(statsStore.recordMergeAbortedAfterConflicts).toHaveBeenCalled()
     })
-
-    it('increments success counter when conflict resolved and tip has changed', () => {
-      const prevState = createState({
-        conflictState: {
-          kind: 'merge',
-          currentBranch: 'master',
-          currentTip: 'old-sha',
-          manualResolutions: new Map<string, ManualConflictResolution>(),
-        },
-      })
-      const status = createStatus({
-        mergeHeadFound: false,
-        currentBranch: 'master',
-        currentTip: 'new-sha',
-      })
-
-      updateConflictState(prevState, status, statsStore)
-
-      expect(statsStore.recordMergeSuccessAfterConflicts).toHaveBeenCalled()
-    })
   })
 
   describe('rebase conflicts', () => {
